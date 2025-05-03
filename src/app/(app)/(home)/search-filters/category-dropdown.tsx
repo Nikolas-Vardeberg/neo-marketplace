@@ -2,14 +2,14 @@
 
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { Category } from "@/payload-types";
-import { isolateObjectProperty } from "payload";
 import { useRef, useState } from "react";
 import { useDropdownPosition } from "./use-dropdown-position";
 import { SubcategoryMenu } from "./subcategory-menu";
+import { CustomCategory } from "../types";
+import Link from "next/link";
 
 interface props {
-    category: Category;
+    category: CustomCategory;
     isActive?: boolean;
     isNavigationHovered?: boolean;
 }
@@ -28,7 +28,7 @@ export const CategoryDropdown = ({ category, isActive, isNavigationHovered }: pr
     const onMouseLeave = () => setisOpen(false);
 
     const dropdownPosition = getDropdownPosition();
-    
+
     return(
         <div
             ref={dropdownRef}
@@ -44,7 +44,9 @@ export const CategoryDropdown = ({ category, isActive, isNavigationHovered }: pr
                         isOpen && "bg-white border-primary",
                     )}
                     >
-                    {category.name}
+                        <Link href={`/${category.slug === "all" ? "" : category.slug}`}>
+                            {category.name}
+                        </Link>
                 </Button>
                 {category.subcategories && category.subcategories.length > 0 && (
                     <div className={cn("absolute opacity-0 -bottom-3 w-0 h-0 border-l-[10px] border-r-[10px] border-b-[10px] border-l-transparent border-r-transparent border-b-black left-1/2 -translate-x-1/2",
