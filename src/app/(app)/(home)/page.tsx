@@ -1,17 +1,18 @@
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Progress } from "@/components/ui/progress";
-import { Textarea } from "@/components/ui/textarea";
+"use client"
+
+import { useTRPC } from "@/trpc/client";
+import { useQuery } from "@tanstack/react-query";
+
 
 export default function Home() {
+  const trpc = useTRPC();
+  const categories = useQuery(trpc.categories.getMany.queryOptions());
+  
   return (
     <div>
-      <Button variant="elevated">
-        Button
-      </Button>
-      <Input placeholder="Hei" />
-      <Progress value={50} />
-      <Textarea placeholder="textarea" />
+      <pre>
+        {JSON.stringify(categories.data, undefined, 2)}
+      </pre>
     </div>
   );
 }
