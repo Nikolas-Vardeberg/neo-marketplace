@@ -1,4 +1,4 @@
-import { Suspense } from "react";
+import React, { Suspense } from "react";
 import Footer from "../../../modules/home/ui/components/footer";
 import { Navbar } from "../../../modules/home/ui/components/navbar";
 import { SearchFilter, SearchFiltersSkeleton } from "../../../modules/home/ui/components/search-filters";
@@ -9,7 +9,7 @@ interface Props {
     children: React.ReactNode;
 }
 
-export default async function Layout({ children }: Props) {
+export default function Layout({ children }: Props) {
     const queryClient = getQueryClient();
 
     void queryClient.prefetchQuery(
