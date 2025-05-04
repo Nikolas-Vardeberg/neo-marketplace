@@ -167,6 +167,16 @@ const retryOperation = async (operation: () => Promise<any>, maxRetries = 5, del
 const seed = async () => {
     const payload = await getPayload({ config });
 
+    await payload.create({
+      collection: "users",
+      data: {
+        email: "admin@demo.com",
+        password: "demo",
+        roles: ["super-admin"],
+        username: "admin",
+      }
+    })
+
     for (const category of categories) {
         const existingCategories = await payload.find({
             collection: "categories",
@@ -231,5 +241,5 @@ const seed = async () => {
 }
 
 await seed();
-
+  
 process.exit(0);
